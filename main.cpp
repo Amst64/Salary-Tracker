@@ -1,7 +1,11 @@
-#include <iostream>
+#include "SalaryTracker.hpp"
 
 int main()
 {
-    std::cout << "Hello World!\n";
+    SalaryTracker app;
+
+    app.run();
+
+    return 0;
 }
 
