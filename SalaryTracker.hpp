@@ -1,5 +1,13 @@
 #include <iostream>
 
+
+enum ki_choice
+{
+	ki_choice_salary = 1,
+	ki_choice_date,
+	ki_choice_expenses,
+};
+
 class SalaryTracker
 {
 private:
@@ -19,4 +27,11 @@ private:
 	void printSalary();
 	void printDate();
 	void printChoice();
+
+	void getUserChoice();
+	void setSalary();
+	bool checkSalary();
+	void setDate();
+	bool checkDateFormat();
+
 };
