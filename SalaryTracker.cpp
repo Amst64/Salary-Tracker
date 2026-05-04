@@ -1,6 +1,6 @@
 #include "SalaryTracker.hpp"
 
-SalaryTracker::SalaryTracker() : mi_salary(0), mb_isSalarySet(false), ms_date(""), mb_isDateSet(false)
+SalaryTracker::SalaryTracker() : mi_salary(0), mb_isSalarySet(false), ms_date(""), mb_isDateSet(false), mb_isExit(false)
 {
 
 }
@@ -9,11 +9,10 @@ void SalaryTracker::run()
 {
     printStart();
     
-    //std::cout << "What is the amount :";
-    //std::cin >> mi_salary;
-
-    //std::cout << "Your Salary for this month is " << mi_salary << std::endl;
-    printSession();
+    while(!mb_isExit)
+    {
+        printSession();
+    }
 
     printEnd();
 }
@@ -61,6 +60,7 @@ void SalaryTracker::printChoice()
     std::cout << "                                      1 : To set salary" << std::endl;
     std::cout << "                                      2 : To set the date" << std::endl;
     std::cout << "                                      3 : To give all expenses using the salary" << std::endl;
+    std::cout << "                                      0 : To exit" << std::endl;
     std::cout << std::endl;
 }
 
@@ -72,6 +72,9 @@ void SalaryTracker::getUserChoice()
 
     switch(li_userChoice)
     {
+        case ki_choice_exit:
+            mb_isExit = true;
+            break;
         case ki_choice_salary:
             setSalary();
             break;

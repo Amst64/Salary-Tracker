@@ -3,7 +3,8 @@
 
 enum ki_choice
 {
-	ki_choice_salary = 1,
+	ki_choice_exit = 0,
+	ki_choice_salary,
 	ki_choice_date,
 	ki_choice_expenses,
 };
@@ -15,6 +16,7 @@ private:
 	bool		mb_isSalarySet;
 	std::string ms_date;
 	bool		mb_isDateSet;
+	bool		mb_isExit;
 
 public:
 	SalaryTracker();
