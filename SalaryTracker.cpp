@@ -7,14 +7,12 @@ SalaryTracker::SalaryTracker() : mi_salary(0), mb_isSalarySet(false), ms_date(""
 
 void SalaryTracker::run()
 {
-    printStart();
-    
     while(!mb_isExit)
     {
+        printStart();
         printSession();
+        printEnd();
     }
-
-    printEnd();
 }
 
 void SalaryTracker::printStart()
