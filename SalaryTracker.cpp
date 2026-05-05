@@ -31,6 +31,7 @@ void SalaryTracker::printSession()
 {
     printSalary();
     printDate();
+    printExpenses();
 
     printChoice();
     getUserChoice();
@@ -53,11 +54,30 @@ void SalaryTracker::printDate()
         std::cout << "Date : is not set" << std::endl;
 }
 
+void SalaryTracker::printExpenses()
+{
+    if (mv_expenses.size() == 0)
+        return;
+
+    std::cout << std::endl;
+    std::cout << "Expenses" << std::endl;
+    for(int i = 0; i < mv_expenses.size(); i++)
+    {
+        setColor(ki_color_defaultWhite); //default color
+        std::cout << "----------------------------------" << std::endl;
+        changeColor(mv_expenses[i].mi_type);
+        std::cout << "-" << mv_expenses[i].mi_amount << " : " << mv_expenses[i].ls_description << std::endl;
+    }
+
+    std::cout << std::endl;
+
+}
+
 void SalaryTracker::printChoice()
 {
     std::cout << "                                      1 : To set salary" << std::endl;
     std::cout << "                                      2 : To set the date" << std::endl;
-    std::cout << "                                      3 : To give all expenses using the salary" << std::endl;
+    std::cout << "                                      3 : To set expenses" << std::endl;
     std::cout << "                                      0 : To exit" << std::endl;
     std::cout << std::endl;
 }
@@ -82,6 +102,7 @@ void SalaryTracker::getUserChoice()
             break;
 
         case ki_choice_expenses:
+            setExpenses();
             break;
     }
 }
@@ -113,7 +134,7 @@ void SalaryTracker::setDate()
     std::cout << "Setting the date..." << std::endl;
     std::cout << "Date format is YYYY-MM-DD" << std::endl;
     std::cout << "Date = ";
-    std::cin >> ms_date;
+    std::getline(std::cin >> std::ws, ms_date);
 
     if(checkDateFormat())
         mb_isDateSet = true;
@@ -150,4 +171,90 @@ bool SalaryTracker::checkDateFormat()
     }
 
     return true;
+}
+
+void SalaryTracker::setExpenses()
+{
+    while(!mb_isExit)
+    {
+        std::cout << "                                      1 : Add expense" << std::endl;
+        std::cout << "                                      2 : Modify expense" << std::endl;
+        std::cout << "                                      3 : Delete expense" << std::endl;
+        std::cout << "                                      0 : To go back" << std::endl;
+        std::cout << std::endl;
+        getUserChoiceForExpenses();
+    }
+
+    mb_isExit = false; //reset
+}
+
+void SalaryTracker::getUserChoiceForExpenses()
+{
+    int li_userChoice;
+    std::cout << "Your choice :";
+    std::cin >> li_userChoice;
+
+    switch (li_userChoice)
+    {
+        case ki_expense_choice_back:
+            mb_isExit = true;
+            break;
+
+        case ki_expense_choice_add:
+            addExpense();
+            break;
+
+        case ki_expense_choice_modify:
+            break;
+
+        case ki_expense_choice_delete:
+            break;
+    }
+}
+
+void SalaryTracker::addExpense()
+{
+    Expense lc_expense;
+
+    std::cout << std::endl;
+    std::cout << "Expense amount = ";
+    std::cin >> lc_expense.mi_amount;
+
+    std::cout << std::endl;
+    std::cout << "Expense description = ";
+    std::getline(std::cin >> std::ws, lc_expense.ls_description);
+
+    std::cout << std::endl;
+    std::cout << std::endl;
+    std::cout << "Choose expense type..." << std::endl;
+    std::cout << "1 : personal expenses" << std::endl;
+    std::cout << "2 : obligatory expenses" << std::endl;
+    std::cout << "3 : donation" << std::endl;
+    std::cout << "Expense type = ";
+    std::cin >> lc_expense.mi_type;
+
+    mv_expenses.push_back(lc_expense);
+}
+
+void SalaryTracker::changeColor(int pi_expenseType)
+{
+    switch(pi_expenseType)
+    {
+        case ki_expense_type_personal:
+            setColor(ki_color_brightWhite);
+            break;
+
+        case ki_expense_type_obligatory:
+            setColor(ki_color_red);
+            break;
+
+        case ki_expense_type_donation:
+            setColor(ki_color_cyan);
+            break;
+    }
+}
+
+void SalaryTracker::setColor(int pi_textColor)
+{
+    std::cout << "\033[" << pi_textColor << "m";
 }

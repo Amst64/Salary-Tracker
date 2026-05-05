@@ -1,13 +1,4 @@
-#include <iostream>
-
-
-enum ki_choice
-{
-	ki_choice_exit = 0,
-	ki_choice_salary,
-	ki_choice_date,
-	ki_choice_expenses,
-};
+#include "SalaryTracker_def.hpp"
 
 class SalaryTracker
 {
@@ -17,6 +8,8 @@ private:
 	std::string ms_date;
 	bool		mb_isDateSet;
 	bool		mb_isExit;
+
+	std::vector<Expense> mv_expenses;
 
 public:
 	SalaryTracker();
@@ -28,6 +21,7 @@ private:
 	void printSession();
 	void printSalary();
 	void printDate();
+	void printExpenses();
 	void printChoice();
 
 	void getUserChoice();
@@ -35,5 +29,10 @@ private:
 	bool checkSalary();
 	void setDate();
 	bool checkDateFormat();
+	void setExpenses();
+	void getUserChoiceForExpenses();
+	void addExpense();
+	void changeColor(int pi_expenseType);
+	void setColor(int pi_textColor);
 
 };
