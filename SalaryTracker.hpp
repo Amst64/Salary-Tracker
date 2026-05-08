@@ -11,6 +11,8 @@ private:
 
 	std::vector<Expense> mv_expenses;
 
+	int mi_leftovers;
+
 public:
 	SalaryTracker();
 	void run();
@@ -22,6 +24,7 @@ private:
 	void printSalary();
 	void printDate();
 	void printExpenses();
+	void printLeftovers();
 	void printChoice();
 
 	void getUserChoice();
@@ -34,5 +37,7 @@ private:
 	void addExpense();
 	void changeColor(int pi_expenseType);
 	void setColor(int pi_textColor);
+	void updateLeftovers();
+	int getTotalExpenses();
 
 };

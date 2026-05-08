@@ -1,6 +1,6 @@
 #include "SalaryTracker.hpp"
 
-SalaryTracker::SalaryTracker() : mi_salary(0), mb_isSalarySet(false), ms_date(""), mb_isDateSet(false), mb_isExit(false)
+SalaryTracker::SalaryTracker() : mi_salary(0), mb_isSalarySet(false), ms_date(""), mb_isDateSet(false), mb_isExit(false), mi_leftovers(0)
 {
 
 }
@@ -32,6 +32,7 @@ void SalaryTracker::printSession()
     printSalary();
     printDate();
     printExpenses();
+    printLeftovers();
 
     printChoice();
     getUserChoice();
@@ -71,6 +72,12 @@ void SalaryTracker::printExpenses()
 
     std::cout << std::endl;
 
+}
+
+void SalaryTracker::printLeftovers()
+{
+    std::cout << std::endl;
+    std::cout << "Leftovers : " << mi_leftovers << std::endl;
 }
 
 void SalaryTracker::printChoice()
@@ -210,6 +217,7 @@ void SalaryTracker::getUserChoiceForExpenses()
         case ki_expense_choice_delete:
             break;
     }
+    updateLeftovers();
 }
 
 void SalaryTracker::addExpense()
@@ -257,4 +265,24 @@ void SalaryTracker::changeColor(int pi_expenseType)
 void SalaryTracker::setColor(int pi_textColor)
 {
     std::cout << "\033[" << pi_textColor << "m";
+}
+
+void SalaryTracker::updateLeftovers()
+{
+    if(mv_expenses.size() > 0 && mb_isSalarySet)
+    {
+        mi_leftovers = mi_salary - getTotalExpenses();
+    }
+}
+
+int SalaryTracker::getTotalExpenses()
+{
+    int li_total = 0;
+
+    for(int i = 0; i < mv_expenses.size(); i++)
+    {
+        li_total += mv_expenses[i].mi_amount;
+    }
+
+    return li_total;
 }
