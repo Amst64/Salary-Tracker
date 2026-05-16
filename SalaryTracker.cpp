@@ -210,10 +210,11 @@ void SalaryTracker::getUserChoiceForExpenses()
             break;
 
         case ki_expense_choice_add:
-            addExpense();
+            addExpenses();
             break;
 
         case ki_expense_choice_modify:
+            modifyExpenses();
             break;
 
         case ki_expense_choice_delete:
@@ -221,28 +222,109 @@ void SalaryTracker::getUserChoiceForExpenses()
     }
 }
 
-void SalaryTracker::addExpense()
+void SalaryTracker::addExpenses()
 {
     Expense lc_expense;
+    changeExpenseAmount(lc_expense.mi_amount);
+    changeExpenseDescription(lc_expense.ls_description);
+    changeExpenseType(lc_expense.mi_type);
 
+    mv_expenses.push_back(lc_expense);
+}
+
+void SalaryTracker::modifyExpenses()
+{
+    std::cout << std::endl;
+    std::cout << "Choose expense to modify (index)" << std::endl;
+    std::cout << std::endl;
+    printExpenses();
+    std::cout << std::endl;
+
+    int li_index;
+    std::cout << "Index = ";
+    std::cin >> li_index;
+    modifyExpense(li_index);
+
+}
+
+void SalaryTracker::modifyExpense(int pi_index)
+{
+    bool lb_isFinish = false;
+
+    while(!lb_isFinish)
+    {
+        std::cout << "What do you want to modify for this expense : ";
+        int li_expenseType = mv_expenses[pi_index].mi_type;
+        changeColor(li_expenseType);
+        std::cout << mv_expenses[pi_index].mi_amount << " : " << mv_expenses[pi_index].ls_description << ": ";
+        switch (li_expenseType)
+        {
+        case ki_expense_type_personal:
+            std::cout << "Personal" << std::endl;
+            break;
+
+        case ki_expense_type_obligatory:
+            std::cout << "Mandatory" << std::endl;
+            break;
+
+        case ki_expense_type_donation:
+            std::cout << "Donation" << std::endl;
+            break;
+        }
+        setColor(ki_color_defaultWhite); //default color
+
+        std::cout << "1 : amount" << std::endl;
+        std::cout << "2 : description" << std::endl;
+        std::cout << "3 : type" << std::endl;
+        std::cout << "0 : go back" << std::endl;
+
+        int li_choice;
+        std::cout << "Choice for modification = ";
+        std::cin >> li_choice;
+
+        switch (li_choice)
+        {
+        case ki_expense_modification_choice_back:
+            lb_isFinish = true;
+            break;
+        case ki_expense_modification_choice_amount:
+            changeExpenseAmount(mv_expenses[pi_index].mi_amount);
+            break;
+
+        case ki_expense_modification_choice_description:
+            changeExpenseDescription(mv_expenses[pi_index].ls_description);
+            break;
+
+        case ki_expense_modification_choice_type:
+            changeExpenseType(mv_expenses[pi_index].mi_type);
+            break;
+        }
+    }
+}
+
+void SalaryTracker::changeExpenseAmount(int& pir_amount)
+{
     std::cout << std::endl;
     std::cout << "Expense amount = ";
-    std::cin >> lc_expense.mi_amount;
+    std::cin >> pir_amount;
+}
 
+void SalaryTracker::changeExpenseDescription(std::string& psr_descritpion)
+{
     std::cout << std::endl;
     std::cout << "Expense description = ";
-    std::getline(std::cin >> std::ws, lc_expense.ls_description);
+    std::getline(std::cin >> std::ws, psr_descritpion);
+}
 
-    std::cout << std::endl;
+void SalaryTracker::changeExpenseType(int& pir_type)
+{
     std::cout << std::endl;
     std::cout << "Choose expense type..." << std::endl;
     std::cout << "1 : personal expenses" << std::endl;
     std::cout << "2 : obligatory expenses" << std::endl;
     std::cout << "3 : donation" << std::endl;
     std::cout << "Expense type = ";
-    std::cin >> lc_expense.mi_type;
-
-    mv_expenses.push_back(lc_expense);
+    std::cin >> pir_type;
 }
 
 void SalaryTracker::changeColor(int pi_expenseType)

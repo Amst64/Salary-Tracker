@@ -19,6 +19,14 @@ enum ki_expense_choice
 	ki_expense_choice_delete,
 };
 
+enum ki_expense_modification_choice
+{
+	ki_expense_modification_choice_back = 0,
+	ki_expense_modification_choice_amount,
+	ki_expense_modification_choice_description,
+	ki_expense_modification_choice_type,
+};
+
 enum ki_expense_type
 {
 	ki_expense_type_personal = 1,

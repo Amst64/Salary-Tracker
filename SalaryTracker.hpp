@@ -34,7 +34,12 @@ private:
 	bool checkDateFormat();
 	void setExpenses();
 	void getUserChoiceForExpenses();
-	void addExpense();
+	void addExpenses();
+	void modifyExpenses();
+	void modifyExpense(int pi_index);
+	void changeExpenseAmount(int& pir_amount);
+	void changeExpenseDescription(std::string& psr_descritpion);
+	void changeExpenseType(int& pir_type);
 	void changeColor(int pi_expenseType);
 	void setColor(int pi_textColor);
 	void updateLeftovers();
