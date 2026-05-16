@@ -67,9 +67,10 @@ void SalaryTracker::printExpenses()
         setColor(ki_color_defaultWhite); //default color
         std::cout << "----------------------------------" << std::endl;
         changeColor(mv_expenses[i].mi_type);
-        std::cout << "-" << mv_expenses[i].mi_amount << " : " << mv_expenses[i].ls_description << std::endl;
+        std::cout << i << " : " << "-" << mv_expenses[i].mi_amount << " : " << mv_expenses[i].ls_description << std::endl;
     }
 
+    setColor(ki_color_defaultWhite); //default color
     std::cout << std::endl;
 
 }
@@ -112,6 +113,7 @@ void SalaryTracker::getUserChoice()
             setExpenses();
             break;
     }
+    updateLeftovers();
 }
 
 void SalaryTracker::setSalary()
@@ -217,7 +219,6 @@ void SalaryTracker::getUserChoiceForExpenses()
         case ki_expense_choice_delete:
             break;
     }
-    updateLeftovers();
 }
 
 void SalaryTracker::addExpense()
